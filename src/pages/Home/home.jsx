@@ -19,7 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const paginationState = useSelector((store) => store.paginationState);
   const searchState = useSelector((store) => store.searchState);
-  const [search, setSearch] = useState(searchState.value);
+  const [search, setSearch] = useState(searchState.value ?? "");
   const [pageState, setPageState] = useState({
     loading: false,
     data: null,
@@ -45,26 +45,38 @@ const Home = () => {
             }));
           })
           .catch((err) => {
-            setPageState((prev) => ({ ...prev, loading: false, error: err }));
+            console.log(err);
+            setPageState((prev) => ({
+              ...prev,
+              loading: false,
+              error: err.response.data,
+            }));
           });
       }
 
       if (pagination.totalCount) {
         getImagesByPage(pagination.page)
           .then((res) => {
-            setTimeout(() => {
+            if (res.length > 0) {
               setPageState((prev) => ({
                 data: res,
                 loading: false,
                 error: null,
               }));
-            }, 1000);
+            } else {
+              setPageState((prev) => ({
+                data: null,
+                loading: false,
+                error: "No data available",
+              }));
+            }
           })
           .catch((err) => {
+            console.log(err);
             setPageState((prev) => ({
               data: null,
               loading: false,
-              error: err,
+              error: err.response.data,
             }));
           });
       }
@@ -90,23 +102,34 @@ const Home = () => {
       if (search && search.length > 0) {
         getImagesBySearch(search, pagination.page)
           .then((res) => {
-            setPagination((prev) => ({
-              ...prev,
-              totalCount: Number(res.total),
-            }));
+            if (res.total > 0) {
+              setPagination((prev) => ({
+                ...prev,
+                totalCount: Number(res.total),
+              }));
 
-            setPageState((prev) => {
-              return {
-                error: null,
-                data: res.results,
-                loading: false,
-              };
-            });
+              setPageState((prev) => {
+                return {
+                  error: null,
+                  data: res.results,
+                  loading: false,
+                };
+              });
+            } else {
+              setPageState((prev) => {
+                return {
+                  error: "NO results",
+                  data: null,
+                  loading: false,
+                };
+              });
+            }
           })
           .catch((err) => {
+            console.log(err);
             setPageState((prev) => {
               return {
-                error: err,
+                error: err.response.data,
                 data: null,
                 loading: false,
               };
@@ -125,20 +148,17 @@ const Home = () => {
     };
   }, [search, pagination.page, dispatch]);
 
-  // To handle the error
-  if (pageState.error) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <InfoTypes type="error" />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen p-8 flex flex-col ">
       <div className="flex justify-end">
         <Search searchInput={search} setSearchInput={setSearch} />
       </div>
+      {/* Error state */}
+      {pageState.error && (
+        <div className=" flex justify-center items-center">
+          <InfoTypes type="error" message={pageState.error} />
+        </div>
+      )}
       {/* Loading state */}
       {pageState.loading && (
         <div className="flex justify-center items-center">

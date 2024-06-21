@@ -45,10 +45,11 @@ const Pagination = ({
         onClick={handlePrev}
       />
 
-      {paginationRange.map((num) => {
+      {paginationRange.map((num, i) => {
         if (num === DOTS) {
           return (
             <Button
+              key={i}
               className="join-item btn btn-square"
               title="..."
               disabled={true}
@@ -58,6 +59,7 @@ const Pagination = ({
 
         return (
           <Button
+            key={i}
             className={`join-item btn btn-square dark:text-white ${
               currentPage === num ? "selected" : ""
             }`}

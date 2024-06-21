@@ -32,7 +32,8 @@ const Card = ({ item, navPath = "#", ...props }) => {
       </div>
       <div className="card-body">
         <h2 className="card-title">
-          {item.alt_description.split(" ").slice(0, 3).join(" ")}
+          {item.alt_description &&
+            item.alt_description.split(" ").slice(0, 3).join(" ")}
           {isNew && <div className="badge badge-secondary">NEW</div>}
         </h2>
         <p>{item.alt_description}</p>

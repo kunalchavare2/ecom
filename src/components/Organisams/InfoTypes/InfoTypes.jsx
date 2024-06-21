@@ -5,7 +5,7 @@ import { ReactComponent as PageNotFound } from "../../../assets/images/page-not-
 import { PropTypes } from "prop-types";
 import Error from "../../../assets/images/error_2.png";
 
-const InfoTypes = ({ type }) => {
+const InfoTypes = ({ type, message }) => {
   const infoTypes = {
     nodata: {
       isSvg: true,
@@ -29,7 +29,7 @@ const InfoTypes = ({ type }) => {
       <Info
         isSvg={infoTypes[`${type}`].isSvg}
         img={infoTypes[`${type}`].img}
-        message={infoTypes[`${type}`].message}
+        message={message ? message.toString() : infoTypes[`${type}`].message}
       />
     </div>
   );

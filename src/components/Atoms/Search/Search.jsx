@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as SearchSvg } from "../../../assets/images/search.svg";
+import { IoIosSearch } from "react-icons/io";
 
 const Search = ({
   placeholderValue,
@@ -18,8 +18,8 @@ const Search = ({
   return (
     <div className="max-w-md min-w-72">
       <div className="relative flex items-center w-full h-10 border-gray-500 border-2 rounded-lg focus-within:shadow-lg  overflow-hidden">
-        <div className="grid place-items-center h-full w-12 text-gray-300">
-          <SearchSvg />
+        <div className="grid place-items-center h-full w-12 text-gray-300 text-sm">
+          <IoIosSearch className="text-2xl" />
         </div>
 
         <input
