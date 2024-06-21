@@ -11,7 +11,7 @@ const GuardedRoute = ({ children }) => {
 
   useEffect(() => {
     dispatch(isExpired());
-  }, []);
+  }, [dispatch]);
 
   if (!isAuth) return <Navigate to="/auth/login" replace={true} />;
 

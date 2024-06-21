@@ -15,6 +15,7 @@ const InfoTypes = ({ type }) => {
     error: {
       isSvg: false,
       img: Error,
+      message: "Something went wrong!",
     },
 
     pageNotFound: {

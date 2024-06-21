@@ -11,7 +11,7 @@ const Header = () => {
   }, [theme]);
 
   const themeHandler = () => {
-    switchTheme((prev) => (prev == "light" ? "dark" : "light"));
+    switchTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   const handleLogOut = () => {

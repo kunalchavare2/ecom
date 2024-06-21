@@ -3,8 +3,6 @@ import { getFromLocalStorage, saveToLocalStorage } from "../../utils/_helpers";
 
 const localSearch = getFromLocalStorage("search");
 
-console.log(localSearch);
-
 const search = { value: "" };
 
 const initialState = localSearch ? localSearch : search;

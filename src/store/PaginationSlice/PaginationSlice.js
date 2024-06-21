@@ -16,7 +16,6 @@ const paginate = createSlice({
   initialState,
   reducers: {
     savePageState: (state, action) => {
-      console.log(action);
       state.page = action.payload.page;
       state.pageSize = action.payload.pageSize;
       state.totalCount = action.payload.totalCount;

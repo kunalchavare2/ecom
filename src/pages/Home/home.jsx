@@ -29,7 +29,6 @@ const Home = () => {
 
   useEffect(() => {
     if (!search) {
-      console.log();
       setPageState((prev) => {
         return {
           error: null,
