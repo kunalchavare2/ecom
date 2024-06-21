@@ -39,7 +39,7 @@ npm run dev
 To start normal server with api connection data
 `If you send api to many request it will stop responding In this case run development server`
 ```sh
-npm run dev
+npm start
 ```
 For Build...
 
