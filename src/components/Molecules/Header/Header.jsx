@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <div className="navbar bg-base-100 border-b-[1px] border-gray-300 sticky top-0 z-10">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl" href="/">
+        <a className="btn btn-ghost text-xl" href="/home">
           Unsplash
         </a>
       </div>
@@ -53,9 +53,9 @@ const Header = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="text-red-500" onClick={handleLogOut}>
+              <button className="text-red-500" onClick={handleLogOut}>
                 Logout
-              </a>
+              </button>
             </li>
           </ul>
         </div>

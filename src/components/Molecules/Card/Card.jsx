@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { isLessThanOneMonthFromNow } from "../../../utils/_helpers";
 
-const Card = ({ item, ...props }) => {
+const Card = ({ item, navPath = "#", ...props }) => {
   const createdDate = new Date(item.created_at);
 
+  // to check if image is latest or not
   const isNew = isLessThanOneMonthFromNow(createdDate);
   const navigate = useNavigate();
 
-  const handleNavigation = (navigation) => {
-    navigate("/home/" + item.id, {
+  // navigate to detail page on card click
+  const handleNavigation = () => {
+    navigate(navPath, {
       state: {
         item: item,
       },
@@ -19,6 +21,7 @@ const Card = ({ item, ...props }) => {
     <div
       className="card w-full max-w-72 bg-base-100 shadow-xl hover:scale-105 transition-transform"
       onClick={handleNavigation}
+      {...props}
     >
       <div className="rounded-sm overflow-hidden">
         <img

@@ -1,5 +1,4 @@
 import React from "react";
-
 import InputBoxV2 from "../../Molecules/InputBoxV2/InputBoxV2";
 import {
   password_validation,
@@ -17,24 +16,44 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  /**
+   * Handles the form submission for login.
+   * It retrieves user data from local storage, validates the form data, and dispatches the login action if valid.
+   *
+   * @param {Object} formData - The form data object containing phone number and password.
+   * @param {number} formData.phonenumber - The phone number entered by the user.
+   * @param {string} formData.password - The password entered by the user.
+   *
+   * @returns {void}
+   */
   const onSubmit = methods.handleSubmit((formData) => {
+    // Retrieve user data from local storage
     const data = getFromLocalStorage("users");
 
+    // Check if user data exists
     if (data) {
+      // Find the user with the entered phone number
       const user = data.find((user) => user.phone === formData.phonenumber);
 
+      // Check if the user exists
       if (user) {
+        // Validate the password
         const isValid = comparePassword(formData.password, user.password);
+
+        // If password is valid, dispatch the login action and navigate to home page
         if (isValid) {
           dispatch(login());
           navigate("/home", { replace: true });
         } else {
+          // If password is invalid, show an error toast
           toast.error("Invalid Credentials");
         }
       } else {
+        // If user is not found, show an error toast
         toast.error("User is not present!");
       }
     } else {
+      // If user data is not found, show an error toast
       toast.error("User is not present!");
     }
   });

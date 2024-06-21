@@ -19,11 +19,23 @@ const SignUpForm = () => {
   const methods = useForm();
   const navigate = useNavigate();
 
+  /**
+   * Handles the form submission for user sign up.
+   *
+   * @param {Object} formData - The form data object containing user input.
+   * @param {string} formData.phonenumber - The user's phone number.
+   * @param {string} formData.newpassword - The user's new password.
+   * @returns {void}
+   */
   const onSubmit = methods.handleSubmit((formData) => {
+    // Retrieve existing user data from local storage
     let data = getFromLocalStorage("users");
 
+    // Hash the new password
     const hashedPassword = hashPassword(formData.newpassword);
 
+    // If user data exists, append new user data to it
+    // Otherwise, create a new array with the new user data
     if (data) {
       data = [
         ...data,
@@ -41,14 +53,20 @@ const SignUpForm = () => {
       ];
     }
 
+    // Save the updated user data to local storage
     saveToLocalStorage(data, "users");
 
+    // Display success toast message
     toast.success("Account created successfully!");
 
+    // Reset the form
     methods.reset();
 
+    // Navigate to the login page
     navigate("/auth/login", { replace: true });
   });
+
+  
   return (
     <FormProvider {...methods}>
       <section className="w-full">

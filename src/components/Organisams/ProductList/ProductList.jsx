@@ -7,7 +7,9 @@ const ProductList = ({ pageState, pagination, setPagination }) => {
     <div className="">
       <div className="min-h-96 grid grid-cols-1 md:grid-cols-2 lg:gap-4 lg:grid-cols-3 justify-items-center justify-evenly gap-10 mt-10 mb-5">
         {pageState.data &&
-          pageState.data.map((imageData, i) => <Card item={imageData} />)}
+          pageState.data.map((imageData, i) => (
+            <Card navPath={`/home/${imageData.id}`} item={imageData} />
+          ))}
       </div>
 
       <div className="">
